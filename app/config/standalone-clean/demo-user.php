@@ -22,15 +22,15 @@ CRM_Core_Transaction::create()->run(function () {
       'last_name' => 'User',
     ])
     ->execute()->first()['id'];
-  $adminEmail = getenv('DEMO_EMAIL');
+  $demoEmail = getenv('DEMO_EMAIL');
   $params = [
     'cms_name' => getenv('DEMO_USER'),
     'cms_pass' => getenv('DEMO_PASS'),
     'notify' => FALSE,
-    $adminEmail => $adminEmail,
+    'email' => $demoEmail,
     'contact_id' => $contactID,
   ];
-  $userID = \CRM_Core_BAO_CMSUser::create($params, $adminEmail);
+  $userID = \CRM_Core_BAO_CMSUser::create($params, 'email');
 
   // Provide the "Administer" role to the demo user
   \Civi\Api4\User::update(FALSE)
