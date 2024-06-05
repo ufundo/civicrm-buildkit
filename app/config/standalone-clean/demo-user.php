@@ -32,10 +32,10 @@ CRM_Core_Transaction::create()->run(function () {
   ];
   $userID = \CRM_Core_BAO_CMSUser::create($params, 'email');
 
-  // Provide the "Administer" role to the demo user
+  // Add the staff role to the demo user.
   \Civi\Api4\User::update(FALSE)
     ->addWhere('id', '=', $userID)
-    ->addValue('roles:name', ['admin'])
+    ->addValue('roles:name', ['staff'])
     ->execute();
 
 });
