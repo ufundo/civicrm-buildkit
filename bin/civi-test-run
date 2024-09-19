@@ -220,7 +220,12 @@ function task_upgrade() {
   else
     if [ -z "$1" ]; then
       CIVIVER=$(getCiviVer)
-      task_upgrade_legacy 5.13.3-multilingual_af_bg_en* "@4.7.30..$CIVIVER:10"
+      local uf=$(cv ev 'echo CIVICRM_UF;')
+      if [[ "$uf" == "Standalone" ]]; then
+        task_upgrade_legacy "@5.75.0..$CIVIVER:10"
+      else
+        task_upgrade_legacy 5.13.3-multilingual_af_bg_en* "@4.7.30..$CIVIVER:10"
+      fi
     else
       task_upgrade_legacy "$@"
     fi
